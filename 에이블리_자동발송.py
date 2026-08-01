@@ -58,7 +58,12 @@ def 설정읽기():
         try:
             설정 = json.loads(통째로)
         except Exception as e:
-            print(f"❌ SETTINGS_JSON 을 못 읽었어요 (JSON 형식 확인): {e}")
+            print(f"❌ SETTINGS_JSON 을 못 읽었어요: {e}")
+            # 값 자체는 절대 안 찍어요(비밀번호가 들어있어요). 모양만 알려줘요.
+            앞 = 통째로.lstrip()[:1]
+            print(f"   길이 {len(통째로)}자, 첫 글자 {앞!r} (정상이면 '{{' 로 시작해야 해요)")
+            print("   → 설정.json 파일 내용을 통째로, 그대로 붙여넣었는지 확인해 주세요.")
+            print("      맥 터미널:  pbcopy < 주문자동발송/설정.json")
             sys.exit(1)
     elif os.path.exists(설정파일):
         with open(설정파일, encoding="utf-8") as f:
