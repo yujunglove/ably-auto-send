@@ -120,7 +120,15 @@ def 링크표읽기():
     # GitHub Actions에서는 시크릿(JSON 통째로)으로 넘길 수 있어요
     시크릿 = os.environ.get("THEME_LINKS_JSON")
     if 시크릿:
-        return json.loads(시크릿)
+        try:
+            return json.loads(시크릿)
+        except Exception as e:
+            print(f"❌ THEME_LINKS_JSON 을 못 읽었어요: {e}")
+            앞 = 시크릿.lstrip()[:1]
+            print(f"   길이 {len(시크릿)}자, 첫 글자 {앞!r} (정상이면 '{{' 로 시작해야 해요)")
+            print("   → 테마링크.json 파일을 열어서, 그 안의 내용 전체를 붙여넣어야 해요.")
+            print("      (명령어를 붙여넣는 게 아니에요!)")
+            sys.exit(1)
     if not os.path.exists(링크표파일):
         print(f"❌ 테마 링크표가 없어요: {링크표파일}")
         sys.exit(1)
