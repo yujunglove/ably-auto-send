@@ -1,0 +1,4 @@
+# 주문 자동발송에 필요한 것 두 개뿐이에요.
+# GitHub Actions 의 pip 캐시도 이 파일을 보고 동작해요 (없으면 워크플로가 실패해요).
+openpyxl>=3.1
+playwright>=1.40
